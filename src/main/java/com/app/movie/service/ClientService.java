@@ -1,14 +1,19 @@
 package com.app.movie.service;
 
 import com.app.movie.dto.ReportClientDto;
+import com.app.movie.dto.ResponseDto;
 import com.app.movie.entities.Client;
 import com.app.movie.repository.ClientRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService {
+
+    private final String CLIENT_REGISTERED="El cliente ya se encuentra registrado";
+    private final String CLIENT_SUCCESS="El cliente se registró correctamente";
 
     @Autowired
     ClientRepository repository;
@@ -27,10 +32,21 @@ public class ClientService {
         return reportClientDto;
     }
 
-    public Client create(Client request) {
+    public ResponseDto create(Client request) {
+        ResponseDto response = new ResponseDto();
+        List<Client> clients = repository.getByEmail(request.getEmail());
 
-        return repository.save(request);
-
+        if (clients.size() > 0){
+            response.status = false;
+            response.message = CLIENT_REGISTERED;
+        }
+        else {
+            repository.save(request);
+            response.status = true;
+            response.message = CLIENT_SUCCESS;
+            response.id = request.getId();
+        }
+        return response;
     }
 
     public Client update(Client client) {

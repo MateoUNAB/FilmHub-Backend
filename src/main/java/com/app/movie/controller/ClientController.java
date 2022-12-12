@@ -1,6 +1,7 @@
 package com.app.movie.controller;
 
 import com.app.movie.dto.ReportClientDto;
+import com.app.movie.dto.ResponseDto;
 import com.app.movie.service.ClientService;
 import com.app.movie.entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ClientController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client create(@RequestBody Client request) {
+    public ResponseDto create(@RequestBody Client request) {
         return service.create(request);
     }
 

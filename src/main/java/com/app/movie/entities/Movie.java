@@ -20,8 +20,11 @@ public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private String id;
+    private String trailerLink;
+    private String imageLink;
     private String name;
     private String ageClassification;
+    private String description;
     private List<Cast> castList;
     private List<Genre> genreList;
 

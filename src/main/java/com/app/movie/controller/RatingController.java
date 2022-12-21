@@ -1,5 +1,6 @@
 package com.app.movie.controller;
 
+import com.app.movie.dto.RatingDto;
 import com.app.movie.dto.ResponseDto;
 import com.app.movie.entities.Rating;
 import com.app.movie.service.RatingService;
@@ -22,7 +23,7 @@ public class RatingController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseDto create(@RequestBody Rating request) {
+    public ResponseDto create(@RequestBody RatingDto request) {
         return service.create(request);
     }
 

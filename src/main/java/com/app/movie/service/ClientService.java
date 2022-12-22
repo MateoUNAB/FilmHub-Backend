@@ -7,6 +7,8 @@ import com.app.movie.repository.ClientRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +19,8 @@ public class ClientService {
 
     @Autowired
     ClientRepository repository;
+
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Iterable<Client> get() {
         Iterable<Client> response = repository.getAll();
@@ -33,6 +37,7 @@ public class ClientService {
     }
 
     public ResponseDto create(Client request) {
+        request.setPassword(encrypt(request.getPassword()));
         ResponseDto response = new ResponseDto();
         List<Client> clients = repository.getByEmail(request.getEmail());
 
@@ -65,5 +70,7 @@ public class ClientService {
         Boolean deleted = true;
         return deleted;
     }
+
+    private String encrypt(String pass) { return this.passwordEncoder.encode(pass);}
 
 }

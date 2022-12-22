@@ -44,6 +44,7 @@ public class RatingService {
             Optional<Client> client = clientRepository.findById(request.clientId);
 
             if (movie.isPresent() && client.isPresent()){
+
                 rating.setStatus("active");
                 rating.setRating(request.rating);
                 rating.setMovie(movie.get());

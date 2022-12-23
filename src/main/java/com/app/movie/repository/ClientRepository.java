@@ -17,10 +17,14 @@ public class ClientRepository {
         return repository.findAll();
     }
 
-    public List<Client> getByEmail(String email){
+    public Optional<Client> getByEmail(String email){
         return repository.getClientsByEmail(email);
     }
-    
+
+    public List<Client> getListByEmail(String email){
+        return repository.getClientsListByEmail(email);
+    }
+
     public Optional<Client> findById(String id){
         Optional<Client> response= repository.findById(id);
         return response;

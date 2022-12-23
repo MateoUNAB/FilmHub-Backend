@@ -39,7 +39,7 @@ public class ClientService {
     public ResponseDto create(Client request) {
         request.setPassword(encrypt(request.getPassword()));
         ResponseDto response = new ResponseDto();
-        List<Client> clients = repository.getByEmail(request.getEmail());
+        List<Client> clients = repository.getListByEmail(request.getEmail());
 
         if (clients.size() > 0){
             response.status = false;
